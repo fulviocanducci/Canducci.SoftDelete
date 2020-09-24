@@ -3,9 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30517.126
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EF5CoreSoftDelete", "EF5CoreSoftDelete\EF5CoreSoftDelete.csproj", "{B65DF08F-52ED-423C-BF90-172749B0B58C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EF5CoreSoftDelete", "EF5CoreSoftDelete\EF5CoreSoftDelete.csproj", "{B65DF08F-52ED-423C-BF90-172749B0B58C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Canducci.SoftDelete", "Canducci.SoftDelete\Canducci.SoftDelete.csproj", "{3A0E03D4-F640-4C5B-85F1-F6482CF5A65C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Canducci.SoftDelete", "Canducci.SoftDelete\Canducci.SoftDelete.csproj", "{3A0E03D4-F640-4C5B-85F1-F6482CF5A65C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{343C4100-5329-44B2-8923-66D50CF82EF9}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -2,5 +2,8 @@
 
 namespace Canducci.SoftDelete
 {
-    public interface ISoftDeleteDateTime : ISoftDelete<DateTime?> { }
+    public interface ISoftDeleteDateTime 
+    { 
+        DateTime? DeletedAt { get; }
+    }
 }

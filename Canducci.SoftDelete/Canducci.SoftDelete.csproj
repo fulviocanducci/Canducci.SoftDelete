@@ -1,8 +1,36 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;netstandard2.1;netcoreapp3.1</TargetFrameworks>
+    <TargetFrameworks>netstandard2.1;netcoreapp3.1</TargetFrameworks>
     <LangVersion>8</LangVersion>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>Canducci</Authors>
+    <Company>Canducci</Company>
+    <Description>Version 1.0 SoftDelete</Description>
+    <PackageIcon>remove.jpg</PackageIcon>
+    <RepositoryUrl>https://github.com/fulviocanducci/Canducci.SoftDelete</RepositoryUrl>
+    <RepositoryType>GIT</RepositoryType>
+    <PackageTags>EntityFrameworkCore ORM NetCore Entity EntityFramework</PackageTags>
+    <PackageProjectUrl>https://github.com/fulviocanducci/Canducci.SoftDelete</PackageProjectUrl>
   </PropertyGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.1'">
+    <PackageReference Include="Microsoft.EntityFrameworkCore">
+      <Version>5.0.0-rc.1.20451.13</Version>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1'">
+    <PackageReference Include="Microsoft.EntityFrameworkCore">
+      <Version>5.0.0-rc.1.20451.13</Version>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="remove.jpg">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
 
 </Project>

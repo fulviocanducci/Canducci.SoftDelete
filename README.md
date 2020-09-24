@@ -2,7 +2,6 @@
 
 [![NuGet](https://img.shields.io/nuget/v/Canducci.SoftDelete.svg?style=plastic&label=version)](https://www.nuget.org/packages/Canducci.SoftDelete/)
 [![NuGet](https://img.shields.io/nuget/dt/Canducci.SoftDelete.svg)](https://www.nuget.org/packages/Canducci.SoftDelete/)
-[![Build Status](https://travis-ci.org/fulviocanducci/Canducci.SoftDelete.svg?branch=master)](https://travis-ci.org/fulviocanducci/Canducci.SoftDelete)
 
 ## Package Installation (NUGET)
 

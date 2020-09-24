@@ -6,6 +6,7 @@ namespace EF5CoreSoftDelete
     {
         static void Main(string[] args)
         {
+            
             Console.WriteLine("Hello World!");
         }
     }

@@ -16,7 +16,7 @@ PM> Install-Package Canducci.SoftDelete
 Declare o namespace `using Canducci.SoftDelete;` and implementation `class`, example:
 
 ```csharp
-public class People: ISoftDeleteDateTime
+public class Animal: ISoftDeleteDateTime
 {
     ...
     public DateTime? DeletedAt { get; }

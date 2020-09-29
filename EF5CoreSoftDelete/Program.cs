@@ -1,5 +1,4 @@
-﻿using EF5CoreSoftDelete.Models;
-using EF5CoreSoftDelete.Services;
+﻿using EF5CoreSoftDelete.Services;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
@@ -10,9 +9,12 @@ namespace EF5CoreSoftDelete
     {
         static void Main(string[] args)
         {
-            
+
             using (DatabaseContext db = new DatabaseContext())
             {
+                var count = 0;
+
+                //db.Database.EnsureDeleted();
                 //db.Database.EnsureCreated();
 
                 //var animal0 = new Animal { Name = "Cão" };
@@ -23,22 +25,30 @@ namespace EF5CoreSoftDelete
                 //db.Animal.Add(animal1);
                 //db.Animal.Add(animal2);
 
-                //var count = db.SaveChanges();
+                //count = db.SaveChanges();
 
                 //Console.WriteLine("Add {0} animal", count);
 
+                //var people0 = new People { Name = "Cão" };
+                //var people1 = new People { Name = "Gato" };
+                //var people2 = new People { Name = "Canário'" };
 
-                //var animal0 = db.Animal.Find(1);
-                //var animal1 = db.Animal.Find(2);
-                //var animal2 = db.Animal.Find(3);
+                //db.People.Add(people0);
+                //db.People.Add(people1);
+                //db.People.Add(people2);
 
-                //db.RemoveRange(animal0, animal1, animal2);               
+                //count = db.SaveChanges();
 
-                //db.SaveChanges();
+                //Console.WriteLine("Add {0} people", count);
 
-                var list = db.Animal.AsNoTrackingWithIdentityResolution()
-                        .IgnoreQueryFilters()
-                        .ToList();
+                //db.Animal.Remove(db.Animal.Find(1));
+                //db.People.Remove(db.People.Find(1));
+                //count = db.SaveChanges();
+
+                //Console.WriteLine("Add {0} people", count);
+
+                var animal = db.Animal.AsNoTrackingWithIdentityResolution().ToList();
+                var peoples = db.People.AsNoTrackingWithIdentityResolution().ToList();
 
             }
 

@@ -7,27 +7,20 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Canducci.SoftDelete
+namespace Canducci.SoftDelete.Interceptors
 {
-    public class SoftDeleteSaveChangesInterceptor : SaveChangesInterceptor
+    public class SoftDeleteDateTimeSaveChangesInterceptor : SaveChangesInterceptor
     {
         internal bool Wheres(EntityEntry where)
         {
             return where.State == EntityState.Deleted &&
-                    where.Entity
-                        .GetType()
-                        .GetInterfaces()
+                    where.Entity.GetType().GetInterfaces()
                         .Contains(typeof(ISoftDeleteDateTime));
         }
 
         internal IList<EntityEntry> GetEntityEntries(DbContextEventData eventData)
         {
-            return eventData
-                .Context
-                .ChangeTracker
-                .Entries()
-                .Where(Wheres)
-                .ToList();
+            return eventData.Context.ChangeTracker.Entries().Where(Wheres).ToList();
         }
 
         internal void SoftDelete(DbContextEventData eventData)
@@ -44,21 +37,29 @@ namespace Canducci.SoftDelete
             }
         }
 
-        public override InterceptionResult<int> SavingChanges(DbContextEventData eventData, InterceptionResult<int> result)
+        public override InterceptionResult<int> SavingChanges(
+            DbContextEventData eventData, 
+            InterceptionResult<int> result
+        )
         {
             SoftDelete(eventData);
             return result;
         }
 
-        public override ValueTask<InterceptionResult<int>> SavingChangesAsync(DbContextEventData eventData, InterceptionResult<int> result,           CancellationToken cancellationToken = new CancellationToken())
+        public override ValueTask<InterceptionResult<int>> SavingChangesAsync(
+            DbContextEventData eventData, InterceptionResult<int> result, 
+            CancellationToken cancellationToken = new CancellationToken()
+        )
         {
             SoftDelete(eventData);
             return new ValueTask<InterceptionResult<int>>(result);
         }
 
-        public static SoftDeleteSaveChangesInterceptor Create()
+        public static SoftDeleteDateTimeSaveChangesInterceptor Create()
         {
-            return new SoftDeleteSaveChangesInterceptor();
+            return new SoftDeleteDateTimeSaveChangesInterceptor();
         }
     }
+
+
 }

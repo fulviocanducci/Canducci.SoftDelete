@@ -1,4 +1,4 @@
-﻿using Canducci.SoftDelete;
+﻿using Canducci.SoftDelete.Extensions;
 using EF5CoreSoftDelete.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,13 +7,15 @@ namespace EF5CoreSoftDelete.Services
     public class DatabaseContext : DbContext
     {
         public DbSet<Animal> Animal { get; set; }
+        public DbSet<People> People { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlite("Data Source = db.db", options =>
             {
             })
-            .AddInterceptorSoftDelete();
+            .AddInterceptorSoftDeleteDateTime()
+            .AddInterceptorSoftDeleteBool();
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -24,7 +26,16 @@ namespace EF5CoreSoftDelete.Services
                 options.Property(x => x.Id).HasColumnName("id");
                 options.Property(x => x.Name).HasColumnName("name").IsRequired().HasMaxLength(100);
                 options.Property(x => x.DeletedAt).HasColumnName("deleted_at");
-                options.HasQueryFilter(x => x.DeletedAt == null);
+                options.HasQueryFilterSoftDeleteDateTime();
+            });
+            modelBuilder.Entity<People>(options =>
+            {
+                options.ToTable("people");
+                options.HasKey(x => x.Id);
+                options.Property(x => x.Id).HasColumnName("id");
+                options.Property(x => x.Name).HasColumnName("name").IsRequired().HasMaxLength(100);
+                options.Property(x => x.DeletedAt).HasColumnName("deleted_at").HasDefaultValue(false);
+                options.HasQueryFilterSoftDeleteBool();
             });
         }
     }

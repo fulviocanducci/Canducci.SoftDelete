@@ -9,4 +9,11 @@ namespace EF5CoreSoftDelete.Models
         public string Name { get; set; }
         public DateTime? DeletedAt { get; }
     }
+
+    public class People : ISoftDeleteBool
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public bool DeletedAt { get; } = false;
+    }
 }

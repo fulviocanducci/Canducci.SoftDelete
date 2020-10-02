@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Canducci.SoftDelete.Internals;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Diagnostics;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -11,21 +11,9 @@ namespace Canducci.SoftDelete.Interceptors
 {
     public class SoftDeleteBoolSaveChangesInterceptor : SaveChangesInterceptor
     {
-        internal bool Wheres(EntityEntry where)
-        {
-            return where.State == EntityState.Deleted &&
-                    where.Entity.GetType().GetInterfaces()
-                        .Contains(typeof(ISoftDeleteBool));
-        }
-
-        internal List<EntityEntry> GetEntityEntries(DbContextEventData eventData)
-        {
-            return eventData.Context.ChangeTracker.Entries().Where(Wheres).ToList();
-        }
-
         internal void SoftDelete(DbContextEventData eventData)
         {
-            IList<EntityEntry> entityEntries = GetEntityEntries(eventData);
+            Entries<ISoftDeleteBool> entityEntries = new Entries<ISoftDeleteBool>(eventData);
             if (entityEntries.Any())
             {
                 foreach (var entity in entityEntries)
@@ -53,12 +41,5 @@ namespace Canducci.SoftDelete.Interceptors
             SoftDelete(eventData);
             return new ValueTask<InterceptionResult<int>>(result);
         }
-
-        public static SoftDeleteBoolSaveChangesInterceptor Create()
-        {
-            return new SoftDeleteBoolSaveChangesInterceptor();
-        }
     }
-
-
 }

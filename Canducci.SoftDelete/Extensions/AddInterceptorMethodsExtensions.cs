@@ -10,14 +10,22 @@ namespace Canducci.SoftDelete.Extensions
         )
         {
             return optionsBuilder
-                .AddInterceptors(SoftDeleteDateTimeSaveChangesInterceptor.Create());            
+                .AddInterceptors(new SoftDeleteDateTimeSaveChangesInterceptor());
         }
         public static DbContextOptionsBuilder AddInterceptorSoftDeleteBool(
             this DbContextOptionsBuilder optionsBuilder
         )
         {
             return optionsBuilder
-                .AddInterceptors(SoftDeleteBoolSaveChangesInterceptor.Create());
+                .AddInterceptors(new SoftDeleteBoolSaveChangesInterceptor());
+        }
+
+        public static DbContextOptionsBuilder AddInterceptorSoftDeleteChar(
+            this DbContextOptionsBuilder optionsBuilder
+        )
+        {
+            return optionsBuilder
+                .AddInterceptors(new SoftDeleteCharSaveChangesInterceptor());
         }
     }
 }

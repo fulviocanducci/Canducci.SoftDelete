@@ -15,13 +15,13 @@ PM> Install-Package Canducci.SoftDelete
 
 Declare o namespace `using Canducci.SoftDelete;` and implementation `class`, example:
 
-#### - DateTime?
+#### - Char
 
 ```csharp
-public class Animal: ISoftDeleteDateTime
+public class People: ISoftDeleteChar
 {
     ...
-    public DateTime? DeletedAt { get; } = null;
+    public char DeletedAt { get; } = 'N';
 }
 ```
 
@@ -35,7 +35,30 @@ public class People: ISoftDeleteBool
 }
 ```
 
-In the configuration em `DbContext`, configure `AddInterceptorSoftDelete` is method extesion and configure `HasQueryFilter(x => x.DeletedAt == null)`, example:
+
+#### - DateTime?
+
+```csharp
+public class Animal: ISoftDeleteDateTime
+{
+    ...
+    public DateTime? DeletedAt { get; } = null;
+}
+```
+
+In the configuration em `DbContext`, configure `AddInterceptorSoftDelete` is method extension:
+
+* `.AddInterceptorSoftDeleteChar()	     // Char`
+* `.AddInterceptorSoftDeleteBool()	     // Bool`
+* `.AddInterceptorSoftDeleteDateTime(); // DateTime?`
+
+and configure `HasQueryFilterSoftDelete` is method extension:
+
+* `options.HasQueryFilterSoftDeleteChar(); //Char`
+* `options.HasQueryFilterSoftDeleteBool(); //Bool`
+* `options.HasQueryFilterSoftDeleteDateTime(); //DateTime?`
+
+### Example:
 
 ```csharp
 public class DatabaseContext : DbContext
@@ -47,8 +70,9 @@ public class DatabaseContext : DbContext
 		optionsBuilder.UseSqlite("Data Source = db.db", options =>
 		{
 		})
-		.AddInterceptorSoftDeleteDateTime() // DateTime?
-		.AddInterceptorSoftDeleteBool(); // Boolean 
+		.AddInterceptorSoftDeleteChar() // Char
+		.AddInterceptorSoftDeleteBool()	// Bool
+		.AddInterceptorSoftDeleteDateTime(); // DateTime?
 	}
 	protected override void OnModelCreating(ModelBuilder modelBuilder)
 	{
@@ -63,17 +87,38 @@ public class DatabaseContext : DbContext
 				.IsRequired()
 				.HasMaxLength(100);
 			options.Property(x => x.DeletedAt)
-				.HasColumnName("deleted_at");
-			options.HasQueryFilterSoftDeleteDateTime();	// DateTime?
+				.HasColumnName("deleted_at")
+				.HasDefaultValue(null); // Default value null
+			options.HasQueryFilterSoftDeleteDateTime(); //DateTime?
 		});
 		modelBuilder.Entity<People>(options =>
 		{
 			options.ToTable("people");
 			options.HasKey(x => x.Id);
-			options.Property(x => x.Id).HasColumnName("id");
-			options.Property(x => x.Name).HasColumnName("name").IsRequired().HasMaxLength(100);
-			options.Property(x => x.DeletedAt).HasColumnName("deleted_at").HasDefaultValue(false);
-			options.HasQueryFilterSoftDeleteBool(); // Bool
+			options.Property(x => x.Id)
+				.HasColumnName("id");
+			options.Property(x => x.Name)
+				.HasColumnName("name")
+				.IsRequired()
+				.HasMaxLength(100);
+			options.Property(x => x.DeletedAt)
+				.HasColumnName("deleted_at")
+				.HasDefaultValue(false); // Default value false
+			options.HasQueryFilterSoftDeleteBool(); //Bool
+		});
+		modelBuilder.Entity<House>(options =>
+		{
+			options.ToTable("house");
+			options.HasKey(x => x.Id);
+			options.Property(x => x.Id)
+				.HasColumnName("id");
+			options.Property(x => x.Name)
+				.HasColumnName("name")
+				.IsRequired().HasMaxLength(100);
+			options.Property(x => x.DeletedAt)
+				.HasColumnName("deleted_at")
+				.HasDefaultValue('N'); // Default value 'N'
+			options.HasQueryFilterSoftDeleteChar(); //Char
 		});
 	}
 }

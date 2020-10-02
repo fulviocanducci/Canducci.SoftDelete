@@ -8,15 +8,20 @@ namespace Canducci.SoftDelete.Extensions
             this EntityTypeBuilder<T> option
         ) where T : class
         {
-            return option
-                .HasQueryFilter(x => ((ISoftDeleteDateTime)x).DeletedAt == null);
+            return option.HasQueryFilter(x => ((ISoftDeleteDateTime)x).DeletedAt == null);
         }
         public static EntityTypeBuilder<T> HasQueryFilterSoftDeleteBool<T>(
             this EntityTypeBuilder<T> option
         ) where T : class
         {
-            return option
-                .HasQueryFilter(x => ((ISoftDeleteBool)x).DeletedAt == false);
+            return option.HasQueryFilter(x => ((ISoftDeleteBool)x).DeletedAt == false);
+        }
+
+        public static EntityTypeBuilder<T> HasQueryFilterSoftDeleteChar<T>(
+            this EntityTypeBuilder<T> option
+        ) where T : class
+        {
+            return option.HasQueryFilter(x => ((ISoftDeleteChar)x).DeletedAt == 'N');
         }
     }
 

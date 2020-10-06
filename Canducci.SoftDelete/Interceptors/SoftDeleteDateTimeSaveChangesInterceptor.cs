@@ -1,9 +1,7 @@
 ﻿using Canducci.SoftDelete.Internals;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -27,7 +25,7 @@ namespace Canducci.SoftDelete.Interceptors
         }
 
         public override InterceptionResult<int> SavingChanges(
-            DbContextEventData eventData, 
+            DbContextEventData eventData,
             InterceptionResult<int> result
         )
         {
@@ -36,7 +34,7 @@ namespace Canducci.SoftDelete.Interceptors
         }
 
         public override ValueTask<InterceptionResult<int>> SavingChangesAsync(
-            DbContextEventData eventData, InterceptionResult<int> result, 
+            DbContextEventData eventData, InterceptionResult<int> result,
             CancellationToken cancellationToken = new CancellationToken()
         )
         {

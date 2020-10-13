@@ -17,10 +17,4 @@
     <ProjectReference Include="..\Canducci.SoftDelete\Canducci.SoftDelete.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="db.db">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
 </Project>

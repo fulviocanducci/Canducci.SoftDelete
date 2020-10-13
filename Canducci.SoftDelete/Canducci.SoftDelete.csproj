@@ -6,14 +6,14 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Canducci</Authors>
     <Company>Canducci</Company>
-    <Description>Version 1.1.1 SoftDelete (char, bool and DateTime?)</Description>
+    <Description>Version 1.1.3 - SoftDelete (char, bool and DateTime?)</Description>
     <PackageIcon>remove.png</PackageIcon>
     <RepositoryUrl>https://github.com/fulviocanducci/Canducci.SoftDelete</RepositoryUrl>
     <RepositoryType>GIT</RepositoryType>
     <PackageTags>EntityFrameworkCore ORM NetCore Entity EntityFramework</PackageTags>
     <PackageProjectUrl>https://github.com/fulviocanducci/Canducci.SoftDelete</PackageProjectUrl>
-    <Version>1.1.2</Version>
-    <PackageReleaseNotes>Version 1.1.1 SoftDelete (char, bool and DateTime?)</PackageReleaseNotes>
+    <Version>1.1.3</Version>
+    <PackageReleaseNotes>Version 1.1.3 - SoftDelete (char, bool and DateTime?)</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.1'">

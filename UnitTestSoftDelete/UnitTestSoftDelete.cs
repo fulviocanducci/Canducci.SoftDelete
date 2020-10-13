@@ -1,6 +1,7 @@
-using System;
 using Canducci.SoftDelete;
+using Canducci.SoftDelete.Internals;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using UnitTestSoftDelete.Models;
 
 namespace UnitTestSoftDelete
@@ -8,6 +9,15 @@ namespace UnitTestSoftDelete
     [TestClass]
     public class UnitTestSoftDelete
     {
+
+        private EntriesSoftDeleteBool EntriesSoftDeleteBool { get; set; }
+        private EntriesSoftDeleteChar EntriesSoftDeleteChar { get; set; }
+        private EntriesSoftDeleteDateTime EntriesSoftDeleteDateTime { get; set; }
+
+        private ModelEntriesGenericChar ModelEntriesGenericChar { get; set; }
+        private ModelEntriesGenericBool ModelEntriesGenericBool { get; set; }
+        private ModelEntriesGenericDateTime ModelEntriesGenericDateTime { get; set; }
+
         private ModelGenericChar ModelGenericChar { get; set; }
         private ModelGenericDateTime ModelGenericDateTime { get; set; }
         private ModelGenericBool ModelGenericBool { get; set; }
@@ -20,6 +30,15 @@ namespace UnitTestSoftDelete
         [TestInitialize]
         public void SetUp()
         {
+            EntriesSoftDeleteBool = new EntriesSoftDeleteBool();
+            EntriesSoftDeleteChar = new EntriesSoftDeleteChar();
+            EntriesSoftDeleteDateTime = new EntriesSoftDeleteDateTime();
+
+            ModelEntriesGenericChar = new ModelEntriesGenericChar();
+            ModelEntriesGenericBool = new ModelEntriesGenericBool();
+            ModelEntriesGenericDateTime = new ModelEntriesGenericDateTime();
+
+
             ModelGenericChar = new ModelGenericChar();
             ModelGenericDateTime = new ModelGenericDateTime();
             ModelGenericBool = new ModelGenericBool();
@@ -30,23 +49,58 @@ namespace UnitTestSoftDelete
         }
 
         [TestMethod]
+        public void TestInterfaceEntriesGenericChar()
+        {
+            Assert.IsInstanceOfType(EntriesSoftDeleteChar, typeof(Entries<ISoftDeleteChar>));
+        }
+
+        [TestMethod]
+        public void TestInterfaceEntriesGenericBool()
+        {
+            Assert.IsInstanceOfType(EntriesSoftDeleteBool, typeof(Entries<ISoftDeleteBool>));
+        }
+
+        [TestMethod]
+        public void TestInterfaceEntriesGenericDateTime()
+        {
+            Assert.IsInstanceOfType(EntriesSoftDeleteDateTime, typeof(Entries<ISoftDeleteDateTime>));
+        }
+
+        [TestMethod]
+        public void TestInterfaceModelEntriesGenericChar()
+        {
+            Assert.IsInstanceOfType(ModelEntriesGenericChar, typeof(Entries<ISoftDeleteChar>));
+        }
+
+        [TestMethod]
+        public void TestInterfaceModelEntriesGenericBool()
+        {
+            Assert.IsInstanceOfType(ModelEntriesGenericBool, typeof(Entries<ISoftDeleteBool>));
+        }
+
+        [TestMethod]
+        public void TestInterfaceModelEntriesGenericDateTime()
+        {
+            Assert.IsInstanceOfType(ModelEntriesGenericDateTime, typeof(Entries<ISoftDeleteDateTime>));
+        }
+
+        [TestMethod]
         public void TestInterfaceGenericChar()
         {
-            Assert.IsInstanceOfType(ModelGenericChar.GetType(), typeof(ISoftDelete<char>).GetType());
+            Assert.IsInstanceOfType(ModelGenericChar, typeof(ISoftDelete<char>));
         }
 
         [TestMethod]
         public void TestInterfaceGenericBool()
         {
-            Assert.IsInstanceOfType(ModelGenericBool.GetType(), typeof(ISoftDelete<bool>).GetType());
+            Assert.IsInstanceOfType(ModelGenericBool, typeof(ISoftDelete<bool>));
         }
 
         [TestMethod]
         public void TestInterfaceGenericDateTime()
         {
-            Assert.IsInstanceOfType(ModelGenericDateTime.GetType(), typeof(ISoftDelete<DateTime?>).GetType());
+            Assert.IsInstanceOfType(ModelGenericDateTime, typeof(ISoftDelete<DateTime?>));
         }
-
 
         [TestMethod]
         public void TestInterfaceGenericBoolValue()
@@ -66,25 +120,23 @@ namespace UnitTestSoftDelete
             Assert.AreEqual(ModelGenericChar.DeletedAt, 'N');
         }
 
-
         [TestMethod]
         public void TestInterfaceChar()
         {
-            Assert.IsInstanceOfType(ModelChar.GetType(), typeof(ISoftDeleteChar).GetType());
+            Assert.IsInstanceOfType(ModelChar, typeof(ISoftDeleteChar));
         }
 
         [TestMethod]
         public void TestInterfaceBool()
         {
-            Assert.IsInstanceOfType(ModelBool.GetType(), typeof(ISoftDeleteBool).GetType());
+            Assert.IsInstanceOfType(ModelBool, typeof(ISoftDeleteBool));
         }
 
         [TestMethod]
         public void TestInterfaceDateTime()
         {
-            Assert.IsInstanceOfType(ModelDateTime.GetType(), typeof(ISoftDeleteDateTime).GetType());
+            Assert.IsInstanceOfType(ModelDateTime, typeof(ISoftDeleteDateTime));
         }
-
 
         [TestMethod]
         public void TestInterfaceCharValue()

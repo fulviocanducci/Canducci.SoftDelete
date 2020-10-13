@@ -1,6 +1,8 @@
 ﻿using Canducci.SoftDelete.Internals;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -9,9 +11,10 @@ namespace Canducci.SoftDelete.Interceptors
 {
     public class SoftDeleteBoolSaveChangesInterceptor : SaveChangesInterceptor
     {
-        internal void SoftDelete(DbContextEventData eventData)
+        private Entries<ISoftDeleteBool> Entries { get; }
+        private void SoftDelete(DbContextEventData eventData)
         {
-            Entries<ISoftDeleteBool> entityEntries = new Entries<ISoftDeleteBool>(eventData);
+            List<EntityEntry> entityEntries = Entries.GetEntityEntries(eventData);
             if (entityEntries.Any())
             {
                 foreach (var entity in entityEntries)
@@ -20,6 +23,11 @@ namespace Canducci.SoftDelete.Interceptors
                     entity.State = EntityState.Modified;
                 }
             }
+        }
+
+        public SoftDeleteBoolSaveChangesInterceptor()
+        {
+            Entries = new EntriesSoftDeleteBool();
         }
 
         public override InterceptionResult<int> SavingChanges(

@@ -20,7 +20,7 @@ namespace EF5CoreSoftDelete
 
                 //var animal0 = new Animal { Name = "Cão" };
                 //var animal1 = new Animal { Name = "Gato" };
-                //var animal2 = new Animal { Name = "Canário'" };
+                //var animal2 = new Animal { Name = "Canário" };
 
                 //db.Animal.Add(animal0);
                 //db.Animal.Add(animal1);
@@ -56,14 +56,14 @@ namespace EF5CoreSoftDelete
                 //Console.WriteLine("Add {0} house", count);
 
 
-                db.Animal.Remove(db.Animal.Find(1));
-                db.People.Remove(db.People.Find(2));
-                db.House.Remove(db.House.Find(3));
-                db.SaveChanges();
+                //db.Animal.Remove(db.Animal.Find(2));
+                //db.People.Remove(db.People.Find(3));
+                //db.House.Remove(db.House.Find(1));
+                //db.SaveChanges();
 
-                var animal = db.Animal.AsNoTrackingWithIdentityResolution().ToList();
-                var peoples = db.People.AsNoTrackingWithIdentityResolution().ToList();
-                var house = db.House.AsNoTrackingWithIdentityResolution().ToList();
+                //var animal = db.Animal.AsNoTrackingWithIdentityResolution().ToList();
+                //var peoples = db.People.AsNoTrackingWithIdentityResolution().ToList();
+                //var house = db.House.AsNoTrackingWithIdentityResolution().ToList();
 
             }
 

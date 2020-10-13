@@ -7,26 +7,27 @@ using System.Linq;
 
 namespace Canducci.SoftDelete.Internals
 {
-    internal sealed class Entries<T>: List<EntityEntry>
+    public abstract class Entries<T>
     {
-        internal DbContextEventData EventData { get; }
-
-        public Entries(DbContextEventData eventData)
+        private bool Wheres(EntityEntry where)
         {
-            EventData = eventData;
-            GetEntityEntries(eventData);
-        }
+            if (where is null)
+            {
+                throw new ArgumentNullException(nameof(where));
+            }
 
-        internal bool Wheres(EntityEntry where)
-        {
             return where.State == EntityState.Deleted &&
                     where.Entity.GetType().GetInterfaces()
                         .Contains(typeof(T));
         }
 
-        internal void GetEntityEntries(DbContextEventData eventData)
+        public List<EntityEntry> GetEntityEntries(DbContextEventData eventData)
         {
-            AddRange(EventData.Context.ChangeTracker.Entries().Where(Wheres).ToList());
+            if (eventData is null)
+            {
+                throw new ArgumentNullException(nameof(eventData));
+            }
+            return eventData.Context.ChangeTracker.Entries().Where(Wheres).ToList();
         }
     }
 }

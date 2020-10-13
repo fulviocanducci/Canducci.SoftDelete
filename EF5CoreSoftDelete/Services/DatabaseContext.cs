@@ -1,6 +1,7 @@
 ﻿using Canducci.SoftDelete.Extensions;
 using EF5CoreSoftDelete.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace EF5CoreSoftDelete.Services
 {
@@ -10,6 +11,7 @@ namespace EF5CoreSoftDelete.Services
         public DbSet<People> People { get; set; }
         public DbSet<House> House { get; set; }
 
+        public static readonly ILoggerFactory MyLoggerFactory = LoggerFactory.Create(builder => { builder.AddConsole(); });
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlite("Data Source = db.db", options =>
@@ -18,6 +20,8 @@ namespace EF5CoreSoftDelete.Services
             .AddInterceptorSoftDeleteChar()
             .AddInterceptorSoftDeleteBool()
             .AddInterceptorSoftDeleteDateTime();
+
+            optionsBuilder.UseLoggerFactory(MyLoggerFactory);
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

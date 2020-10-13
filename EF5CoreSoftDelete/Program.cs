@@ -61,9 +61,9 @@ namespace EF5CoreSoftDelete
                 //db.House.Remove(db.House.Find(1));
                 //db.SaveChanges();
 
-                //var animal = db.Animal.AsNoTrackingWithIdentityResolution().ToList();
-                //var peoples = db.People.AsNoTrackingWithIdentityResolution().ToList();
-                //var house = db.House.AsNoTrackingWithIdentityResolution().ToList();
+                var animal = db.Animal.AsNoTrackingWithIdentityResolution().ToList();
+                var peoples = db.People.AsNoTrackingWithIdentityResolution().ToList();
+                var house = db.House.AsNoTrackingWithIdentityResolution().ToList();
 
             }
 

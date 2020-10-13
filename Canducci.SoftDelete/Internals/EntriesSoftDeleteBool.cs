@@ -1,7 +1,6 @@
 ﻿namespace Canducci.SoftDelete.Internals
 {
-    public sealed class EntriesSoftDeleteBool: Entries<ISoftDeleteBool>
+    public sealed class EntriesSoftDeleteBool : Entries<ISoftDeleteBool>
     {
-
     }
 }

@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Canducci.SoftDelete.Extensions
 {
@@ -15,7 +13,7 @@ namespace Canducci.SoftDelete.Extensions
         public static EntityTypeBuilder<T> HasQueryFilterSoftDeleteBool<T>(
             this EntityTypeBuilder<T> option
         ) where T : class
-        { 
+        {
             //option.HasQueryFilter(x => EF.Property<bool>(x, "DeletedAt") == false);
             return option.HasQueryFilter(x => ((ISoftDeleteBool)x).DeletedAt == false);
         }

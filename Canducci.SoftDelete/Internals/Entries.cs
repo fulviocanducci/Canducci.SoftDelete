@@ -15,7 +15,6 @@ namespace Canducci.SoftDelete.Internals
             {
                 throw new ArgumentNullException(nameof(where));
             }
-
             return where.State == EntityState.Deleted &&
                     where.Entity.GetType().GetInterfaces()
                         .Contains(typeof(T));

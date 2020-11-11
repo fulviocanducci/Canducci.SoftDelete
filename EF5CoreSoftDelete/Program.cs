@@ -56,10 +56,10 @@ namespace EF5CoreSoftDelete
                 //Console.WriteLine("Add {0} house", count);
 
 
-                //db.Animal.Remove(db.Animal.Find(2));
-                //db.People.Remove(db.People.Find(3));
-                //db.House.Remove(db.House.Find(1));
-                //db.SaveChanges();
+                db.Animal.Remove(db.Animal.Find(2));
+                db.People.Remove(db.People.Find(3));
+                db.House.Remove(db.House.Find(1));
+                db.SaveChanges();
 
                 var animal = db.Animal.AsNoTrackingWithIdentityResolution().ToList();
                 var peoples = db.People.AsNoTrackingWithIdentityResolution().ToList();

@@ -13,7 +13,7 @@ namespace EF5CoreSoftDelete
 
             using (DatabaseContext db = new DatabaseContext())
             {
-                var count = 0;
+                //var count = 0;
 
                 //db.Database.EnsureDeleted();
                 //db.Database.EnsureCreated();

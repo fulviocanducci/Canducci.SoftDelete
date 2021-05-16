@@ -3,6 +3,7 @@
 [![NuGet](https://img.shields.io/nuget/v/Canducci.SoftDelete.svg?style=plastic&label=version)](https://www.nuget.org/packages/Canducci.SoftDelete/)
 [![NuGet](https://img.shields.io/nuget/dt/Canducci.SoftDelete.svg)](https://www.nuget.org/packages/Canducci.SoftDelete/)
 [![.NET Core](https://github.com/fulviocanducci/Canducci.SoftDelete/workflows/.NET%20Core/badge.svg)](https://www.nuget.org/packages/Canducci.SoftDelete/)
+[![Coverage Status](https://coveralls.io/repos/github/fulviocanducci/Canducci.SoftDelete/badge.svg)](https://coveralls.io/github/fulviocanducci/Canducci.SoftDelete)
 
 ## Package Installation (NUGET)
 

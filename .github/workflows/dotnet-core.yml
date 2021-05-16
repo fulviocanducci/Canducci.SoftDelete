@@ -22,4 +22,9 @@ jobs:
     - name: Build
       run: dotnet build --configuration Release --no-restore
     - name: Test
-      run: dotnet test --no-restore --verbosity normal
+      run: dotnet test -c Release /p:CollectCoverage=true /p:CoverletOutput="$GITHUB_WORKSPACE/coverage/lcov.info" /p:MergeWith="$GITHUB_WORKSPACE/coverage/lcov.info" /p:CoverletOutputFormat=lcov
+    - name: Coveralls
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        path-to-lcov: ${{ github.workspace }}/coverage/lcov.info

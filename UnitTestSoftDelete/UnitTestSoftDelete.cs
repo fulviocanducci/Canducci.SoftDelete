@@ -87,18 +87,21 @@ namespace UnitTestSoftDelete
         [TestMethod]
         public void TestInterfaceGenericChar()
         {
+            Assert.IsInstanceOfType(ModelGenericChar.Id, typeof(Guid));
             Assert.IsInstanceOfType(ModelGenericChar, typeof(ISoftDelete<char>));
         }
 
         [TestMethod]
         public void TestInterfaceGenericBool()
         {
+            Assert.IsInstanceOfType(ModelGenericBool.Id, typeof(Guid));
             Assert.IsInstanceOfType(ModelGenericBool, typeof(ISoftDelete<bool>));
         }
 
         [TestMethod]
         public void TestInterfaceGenericDateTime()
         {
+            Assert.IsInstanceOfType(ModelGenericDateTime.Id, typeof(Guid));
             Assert.IsInstanceOfType(ModelGenericDateTime, typeof(ISoftDelete<DateTime?>));
         }
 
@@ -135,24 +138,28 @@ namespace UnitTestSoftDelete
         [TestMethod]
         public void TestInterfaceDateTime()
         {
+            Assert.IsInstanceOfType(ModelDateTime.Id, typeof(System.Guid));
             Assert.IsInstanceOfType(ModelDateTime, typeof(ISoftDeleteDateTime));
         }
 
         [TestMethod]
         public void TestInterfaceCharValue()
         {
+            Assert.IsInstanceOfType(ModelChar.Id, typeof(System.Guid));
             Assert.AreEqual(ModelChar.DeletedAt, 'N');
         }
 
         [TestMethod]
         public void TestInterfaceBoolValue()
         {
+            Assert.IsInstanceOfType(ModelBool.Id, typeof(System.Guid));
             Assert.AreEqual(ModelBool.DeletedAt, default);
         }
 
         [TestMethod]
         public void TestInterfaceDateTimeValue()
         {
+            Assert.IsInstanceOfType(ModelDateTime.Id, typeof(System.Guid));
             Assert.AreEqual(ModelDateTime.DeletedAt, default);
         }
     }

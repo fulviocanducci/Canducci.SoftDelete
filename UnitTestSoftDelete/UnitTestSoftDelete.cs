@@ -3,13 +3,24 @@ using Canducci.SoftDelete.Internals;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using UnitTestSoftDelete.Models;
+using Canducci.SoftDelete.Extensions;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using Canducci.SoftDelete.Interceptors;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Diagnostics;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore.Metadata;
+using UnitTestSoftDelete.Service;
+using System.Threading.Tasks;
 
 namespace UnitTestSoftDelete
 {
     [TestClass]
     public class UnitTestSoftDelete
     {
-
+        private Db Db { get; set; }
+        private DbContextOptionsBuilder Builder { get; set; }
         private EntriesSoftDeleteBool EntriesSoftDeleteBool { get; set; }
         private EntriesSoftDeleteChar EntriesSoftDeleteChar { get; set; }
         private EntriesSoftDeleteDateTime EntriesSoftDeleteDateTime { get; set; }
@@ -46,6 +57,10 @@ namespace UnitTestSoftDelete
             ModelChar = new ModelChar();
             ModelDateTime = new ModelDateTime();
             ModelBool = new ModelBool();
+
+            Builder = new DbContextOptionsBuilder();
+
+            Db = new Db();
         }
 
         [TestMethod]
@@ -161,6 +176,90 @@ namespace UnitTestSoftDelete
         {
             Assert.IsInstanceOfType(ModelDateTime.Id, typeof(System.Guid));
             Assert.AreEqual(ModelDateTime.DeletedAt, default);
+        }
+
+        [TestMethod]
+        public void TestMethodAddInterceptorSoftDeleteExtension()
+        {            
+            AddInterceptorMethodsExtensions.AddInterceptorSoftDeleteDateTime(Builder);
+            AddInterceptorMethodsExtensions.AddInterceptorSoftDeleteBool(Builder);
+            AddInterceptorMethodsExtensions.AddInterceptorSoftDeleteChar(Builder);
+            var interceptors = Builder
+                .Options
+                .Extensions
+                .ToList()
+                .Select(x => (CoreOptionsExtension)x)
+                .Select(x => x.Interceptors)                
+                .FirstOrDefault();
+            bool intSoftDateTime = interceptors.Where(x => x.GetType() == typeof(SoftDeleteDateTimeSaveChangesInterceptor)).Any();
+            bool intSoftBool = interceptors.Where(x => x.GetType() == typeof(SoftDeleteBoolSaveChangesInterceptor)).Any();
+            bool intSoftChar = interceptors.Where(x => x.GetType() == typeof(SoftDeleteCharSaveChangesInterceptor)).Any();
+            Assert.IsTrue(intSoftDateTime);
+            Assert.IsTrue(intSoftBool);
+            Assert.IsTrue(intSoftChar);
+        }
+
+        [TestMethod]
+        public void TestMethodAddInterceptorSoftDeleteExtensionInstanceOf()
+        {
+            SoftDeleteDateTimeSaveChangesInterceptor a = new SoftDeleteDateTimeSaveChangesInterceptor();
+            SoftDeleteBoolSaveChangesInterceptor b = new SoftDeleteBoolSaveChangesInterceptor();
+            SoftDeleteCharSaveChangesInterceptor c = new SoftDeleteCharSaveChangesInterceptor();
+
+            Assert.IsInstanceOfType(a, typeof(SaveChangesInterceptor));
+            Assert.IsInstanceOfType(b, typeof(SaveChangesInterceptor));
+            Assert.IsInstanceOfType(c, typeof(SaveChangesInterceptor));
+        }
+
+        [TestMethod]
+        public void TestEntries()
+        {
+            ModelEntriesGenericBool modelEntriesGenericBool = new ModelEntriesGenericBool();
+            ModelEntriesGenericChar modelEntriesGenericChar = new ModelEntriesGenericChar();
+            ModelEntriesGenericDateTime ModelEntriesGenericDateTime = new ModelEntriesGenericDateTime();
+            
+            Assert.IsInstanceOfType(modelEntriesGenericBool, typeof(Entries<ISoftDeleteBool>));
+            Assert.IsInstanceOfType(modelEntriesGenericChar, typeof(Entries<ISoftDeleteChar>));
+            Assert.IsInstanceOfType(ModelEntriesGenericDateTime, typeof(Entries<ISoftDeleteDateTime>));
+        }
+
+        //[TestMethod]
+        //public void Test1()
+        //{
+        //    EntityTypeBuilder<ModelBool> entityTypeBuilder = new(IMutableEntityType);
+        //    HasQueryFilterExtensions.HasQueryFilterSoftDeleteBool(entityTypeBuilder);
+        //}
+
+        [TestMethod]
+        public async Task TestDbContextInMemory()
+        {
+            ModelBool modelBool = new();
+            ModelChar modelChar = new();
+            ModelDateTime modelDateTime = new();
+
+            Db.Add(modelBool);
+            Db.Add(modelChar);
+            Db.Add(modelDateTime);
+
+            Db.SaveChanges();
+
+            Assert.AreNotEqual(modelBool.Id, Guid.Empty);
+            Assert.AreNotEqual(modelChar.Id, Guid.Empty);
+            Assert.AreNotEqual(modelDateTime.Id, Guid.Empty);
+            Assert.AreEqual(modelBool.DeletedAt, false);
+            Assert.AreEqual(modelChar.DeletedAt, char.Parse("N"));
+            Assert.AreEqual(modelDateTime.DeletedAt, null);
+
+            Db.ModelBools.Remove(modelBool);
+            Db.ModelChars.Remove(modelChar);
+            Db.ModelDateTimes.Remove(modelDateTime);
+
+            await Db.SaveChangesAsync();
+
+            Assert.AreNotEqual(modelBool.DeletedAt, false);
+            Assert.AreNotEqual(modelChar.DeletedAt, char.Parse("N"));
+            Assert.AreNotEqual(modelDateTime.DeletedAt, null);
+
         }
     }
 }

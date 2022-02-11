@@ -6,16 +6,16 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Canducci</Authors>
     <Company>Canducci</Company>
-    <Description>Version 1.1.6 - Entity Framework Core 5.0.4</Description>
+    <Description>Version 1.1.7 - Entity Framework Core 5.0.14</Description>
     <PackageIcon>remove.png</PackageIcon>
     <RepositoryUrl>https://github.com/fulviocanducci/Canducci.SoftDelete</RepositoryUrl>
     <RepositoryType>GIT</RepositoryType>
     <PackageTags>EntityFrameworkCore ORM NetCore Entity EntityFramework</PackageTags>
     <PackageProjectUrl>https://github.com/fulviocanducci/Canducci.SoftDelete</PackageProjectUrl>
-    <Version>1.1.6</Version>
-    <PackageReleaseNotes>Version 1.1.6 - Entity Framework Core 5.0.1</PackageReleaseNotes>
-    <AssemblyVersion>1.1.6.0</AssemblyVersion>
-    <FileVersion>1.1.6.0</FileVersion>
+    <Version>1.1.7</Version>
+    <PackageReleaseNotes>Version 1.1.7 - Entity Framework Core 5.0.14</PackageReleaseNotes>
+    <AssemblyVersion>1.1.7.0</AssemblyVersion>
+    <FileVersion>1.1.7.0</FileVersion>
   </PropertyGroup>
 
 

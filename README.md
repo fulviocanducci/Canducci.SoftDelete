@@ -1,4 +1,4 @@
-# Canducci SoftDelete Entity Framework Core 5
+# Canducci SoftDelete Entity Framework Core
 
 [![NuGet](https://img.shields.io/nuget/v/Canducci.SoftDelete.svg?style=plastic&label=version)](https://www.nuget.org/packages/Canducci.SoftDelete/)
 [![NuGet](https://img.shields.io/nuget/dt/Canducci.SoftDelete.svg)](https://www.nuget.org/packages/Canducci.SoftDelete/)

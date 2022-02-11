@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using System;
+using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Canducci.SoftDelete.Extensions
 {
@@ -8,6 +10,14 @@ namespace Canducci.SoftDelete.Extensions
             this EntityTypeBuilder<T> option
         ) where T : class
         {
+            return option.HasQueryFilter(x => ((ISoftDeleteDateTime)x).DeletedAt == null);
+        }
+        public static EntityTypeBuilder<T> HasQueryFilterSoftDeleteDateTime<T, TProperty>(
+            this EntityTypeBuilder<T> option, Expression<Func<T, TProperty>> propertyExpression, string name
+        ) where T : class
+        {
+
+            option.Property<TProperty>(propertyExpression);      
             return option.HasQueryFilter(x => ((ISoftDeleteDateTime)x).DeletedAt == null);
         }
         public static EntityTypeBuilder<T> HasQueryFilterSoftDeleteBool<T>(
